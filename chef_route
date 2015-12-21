@@ -1,0 +1,23 @@
+require 'json'
+
+t = File.readlines("test_all.txt")
+a = Hash.new
+b = Hash.new
+c = Array.new 
+
+a['id'] = "route"
+b['ipaddress'] = t[-5].chomp 
+b['gateway'] = t[-4].chomp
+b['interface'] = t[-3].chomp
+b['device'] = t[-2].chomp
+b['action'] = t[-1].chop.chop
+c.push(b)
+
+t[0].split(" ").each do |f|
+  @fqdn = f 
+  a["#{@fqdn}"] = c
+end
+
+File.open("/home/munusamy/chef/route_all.json", "w") do |f|
+  f.write(a.to_json)
+end
