@@ -1,0 +1,13 @@
+@tmp = []
+@actual = []
+# zip_dir is the directory location where list of files with versions present 
+Dir.foreach(zip_dir) do |zip| 
+  @tmp << zip if zip.match(%r{(\d+\.)(\d+\.)(\d+\.)[zip]})  # matches something like filename.x.x.x.zip and add it to array
+end
+ordered_list.each do |file|                                 # ordered_list is the list of files which is in order, so that the files
+  @tmp.each do |zip|                                        # in zip_dir dir will get arranged in the same order as ordered_list
+    @actual << zip if zip.match(file)
+  end
+end
+
+# This is in case where we need to call/upload the files in order
